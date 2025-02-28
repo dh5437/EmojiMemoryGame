@@ -11,7 +11,7 @@ import SwiftUI
 struct EmojiMemoryGameApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            EmojiMemoryGameView()
         }
     }
 }
