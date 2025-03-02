@@ -10,7 +10,7 @@ import SwiftUI
 class EmojiMemoryGameViewModel: ObservableObject {
     typealias Card = EmojiMemoryGameModel<String>.Card
     
-    private static let emojis: [String] = ["🦄", "🐇", "🐰", "🦎", "🐻", "🐼", "🦁", "🦉", "🐯"]
+    static let emojis: [String] = ["🦄", "🐇", "🐰", "🦎", "🐻", "🐼", "🦁", "🦉", "🐯"]
     
     private static func createGame() -> EmojiMemoryGameModel<String> {
         return EmojiMemoryGameModel(

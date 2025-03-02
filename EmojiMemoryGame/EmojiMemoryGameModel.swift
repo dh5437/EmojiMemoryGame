@@ -9,7 +9,7 @@ import Foundation
 
 struct EmojiMemoryGameModel<CardContent> where CardContent: Hashable {
     private(set) var deck: Array<Card>
-    private(set) var discardedDeck: Array<Card> = [Card(id: "20a",isFaceUp: true, isMatched: true, content: "🦁" as! CardContent)]
+    private(set) var discardedDeck: Array<Card> = []
     
     init(numberOfPairsOfShowingEmojis: Int, contentFactory: @escaping (Int) -> CardContent) {
         deck = []
