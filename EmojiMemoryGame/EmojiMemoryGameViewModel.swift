@@ -10,11 +10,13 @@ import SwiftUI
 class EmojiMemoryGameViewModel: ObservableObject {
     typealias Card = EmojiMemoryGameModel<String>.Card
     
-    static let emojis: [String] = ["🦄", "🐇", "🐰", "🦎", "🐻", "🐼", "🦁", "🦉", "🐯"]
+    @Published var model: EmojiMemoryGameModel<String>
+    @Published var currentTheme: Theme
     
-    private static func createGame() -> EmojiMemoryGameModel<String> {
+    private static func createGame(with theme: Theme) -> EmojiMemoryGameModel<String> {
+        let emojis = theme.emojis.map { String($0) }
         return EmojiMemoryGameModel(
-            numberOfPairsOfShowingEmojis: emojis.count) { index in
+            numberOfPairsOfShowingEmojis: min(emojis.count, 8)) { index in
                 if emojis.indices.contains(index) {
                     return emojis[index]
                 } else {
@@ -23,7 +25,15 @@ class EmojiMemoryGameViewModel: ObservableObject {
             }
     }
     
-    @Published var model = createGame()
+    init(theme: Theme) {
+        self.currentTheme = theme
+        self.model = Self.createGame(with: theme)
+    }
+    
+    func changeTheme(to newTheme: Theme) {
+        self.currentTheme = newTheme
+        self.model = Self.createGame(with: newTheme)
+    }
     
     func choose(_ card: Card) {
         model.choose(card)

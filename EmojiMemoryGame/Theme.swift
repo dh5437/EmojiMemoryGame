@@ -18,7 +18,7 @@ struct Theme: Identifiable, Hashable {
         Theme(name: "Vehicles", color: RGBA(color: .blue), emojis: "🚙🚗🚘🚕🚖🏎🚚🛻🚛🚐🚓🚔🚑🚒🚀✈️🛫🛬🛩🚁🛸🚲🏍🛶⛵️🚤🛥🛳⛴🚢🚂🚝🚅🚆🚊🚉🚇🛺🚜"),
         Theme(name: "Sports", color: RGBA(color: .red), emojis: "🏈⚾️🏀⚽️🎾🏐🥏🏓⛳️🥅🥌🏂⛷🎳"),
         Theme(name: "Music", color: RGBA(color: .mint), emojis: "🎼🎤🎹🪘🥁🎺🪗🪕🎻"),
-        Theme(name: "Animals", color: RGBA(color: .orange), emojis: "🐥🐣🐂🐄🐎🐖🐏🐑🦙🐐🐓🐁🐀🐒🦆🦅🦉🦇🐢🐍🦎🦖🦕🐅🐆🦓🦍🦧🦣🐘🦛🦏🐪🐫🦒🦘🦬🐃🦙🐐🦌🐕🐩🦮🐈🦤🦢🦩🕊🦝🦨🦡🦫🦦🦥🐿🦔"),
+        Theme(name: "Animals", color: RGBA(color: .orange), emojis: "🐥🐣🐂🐄🐎🐖🐏🐑🐓🐁🐀🐒🦆🦅🦉🦇🐢🐍🦎🦖🦕🐅🐆🦓🦍🦧🦣🐘🦛🦏🐪🐫🦒🦘🦬🐃🦙🐐🦌🐕🐩🦮🐈🦤🦢🦩🕊🦝🦨🦡🦫🦦🦥🐿🦔"),
         Theme(name: "Animal Faces", color: RGBA(color: .brown), emojis: "🐵🙈🙊🙉🐶🐱🐭🐹🐰🦊🐻🐼🐻‍❄️🐨🐯🦁🐮🐷🐸🐲"),
         Theme(name: "Flora", color: RGBA(color: .green), emojis: "🌲🌴🌿☘️🍀🍁🍄🌾💐🌷🌹🥀🌺🌸🌼🌻"),
         Theme(name: "Weather", color: RGBA(color: .white), emojis: "☀️🌤⛅️🌥☁️🌦🌧⛈🌩🌨❄️💨☔️💧💦🌊☂️🌫🌪"),

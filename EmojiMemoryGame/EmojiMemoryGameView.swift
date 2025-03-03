@@ -9,10 +9,11 @@ import SwiftUI
 
 struct EmojiMemoryGameView: View {
     @ObservedObject var emojiViewModel: EmojiMemoryGameViewModel
+    let theme: Theme
     
     var body: some View {
         VStack {
-            Text("Emoji Memory Game")
+            Text(emojiViewModel.currentTheme.name)
                 .font(.largeTitle)
             cards
             Spacer()
@@ -23,7 +24,7 @@ struct EmojiMemoryGameView: View {
     
     var cards: some View {
         AspectVGrid(emojiViewModel.model.deck, aspectRatio: 2/3, content: { card in
-            CardView(card: card)
+            CardView(card: card, theme: theme)
                 .aspectRatio(2/3, contentMode: .fit)
                 .onTapGesture {
                     emojiViewModel.choose(card)
@@ -45,13 +46,13 @@ struct EmojiMemoryGameView: View {
 
             Spacer()
             ZStack {
-                ForEach(emojiViewModel.model.discardedDeck) { card in
+                ForEach(emojiViewModel.model.discardedDeck, id: \.self) { card in
                     ZStack {
                         Text(card.content)
                             .font(.system(size: 48))
                             .background(Color.white)
                         RoundedRectangle(cornerRadius: 10)
-                            .strokeBorder(Color.green)
+                            .strokeBorder(Color(rgba: theme.color), lineWidth: 2)
                     }
                         .aspectRatio(2/3, contentMode: .fit)
                 }
@@ -62,5 +63,6 @@ struct EmojiMemoryGameView: View {
 }
 
 #Preview {
-    EmojiMemoryGameView(emojiViewModel: EmojiMemoryGameViewModel())
+    let theme = Theme(name: "Preview", color: RGBA(color: .accentColor), emojis: "🧆🍛🫔🥘🥗🍝🥪🍜")
+    EmojiMemoryGameView(emojiViewModel: EmojiMemoryGameViewModel(theme: theme), theme: theme)
 }

@@ -9,13 +9,16 @@ import SwiftUI
 
 struct ThemeChooser: View {
     @ObservedObject var themeStore: ThemeStore
-    @EnvironmentObject var emojiViewModel: EmojiMemoryGameViewModel
+    @StateObject private var viewModel = EmojiMemoryGameViewModel(theme: Theme.builtins.first!)
     
     var body: some View {
         NavigationStack {
             List(themeStore.themes) { theme in
                 NavigationLink {
-                    EmojiMemoryGameView(emojiViewModel: emojiViewModel)
+                    EmojiMemoryGameView(emojiViewModel: viewModel, theme: theme)
+                        .onAppear {
+                            viewModel.changeTheme(to: theme)
+                        }
                 } label: {
                     VStack(alignment: .leading) {
                         Text(theme.name)
@@ -51,5 +54,4 @@ struct ScrollingEmojis: View {
 
 #Preview {
     ThemeChooser(themeStore: ThemeStore())
-        .environmentObject(EmojiMemoryGameViewModel())
 }

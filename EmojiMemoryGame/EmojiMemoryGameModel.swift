@@ -26,28 +26,32 @@ struct EmojiMemoryGameModel<CardContent> where CardContent: Hashable {
     mutating func choose(_ card: Card) {
         guard let chosenIndex = deck.firstIndex(where: { $0.id == card.id }) else { return }
         
-        // ✅ 이미 FaceUp 상태라면 뒤집기 (선택 해제)
         if deck[chosenIndex].isFaceUp {
             deck[chosenIndex].isFaceUp = false
             return
         }
         
-        // ✅ 현재 FaceUp 상태인 카드 찾기
         let faceUpIndices = deck.indices.filter { deck[$0].isFaceUp }
         
+        deck[chosenIndex].isFaceUp = true
+        
+        print("Face up cards: \(faceUpIndices)")
+        
         if faceUpIndices.count == 1 {
-            let firstFaceUpIndex = faceUpIndices.first!
+            guard let firstFaceUpIndex = faceUpIndices.first else {
+                return
+            }
             
-            // ✅ 카드가 일치하는 경우
             if deck[firstFaceUpIndex].content == deck[chosenIndex].content {
                 deck[firstFaceUpIndex].isMatched = true
                 deck[chosenIndex].isMatched = true
                 
                 discard(firstFaceUpIndex)
                 discard(chosenIndex)
+                
+                print("Card is Matched! \(deck[firstFaceUpIndex].content), \(deck[chosenIndex].content)")
             }
         }
-        deck[chosenIndex].isFaceUp = true
     }
 
     mutating func flipDownUnmatchedCards() {
@@ -57,8 +61,15 @@ struct EmojiMemoryGameModel<CardContent> where CardContent: Hashable {
     }
 
     private mutating func discard(_ index: Int) {
-        discardedDeck.append(deck[index])
+        if deck.indices.contains(index) {
+            var card = deck[index]
+            card.id += "_discarded"
+            discardedDeck.append(card)
+            deck[index].isFaceUp = false
+            deck = deck.map { $0 }
+        }
     }
+
     
     mutating func shuffle() {
         deck.shuffle()
