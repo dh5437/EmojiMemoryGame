@@ -25,9 +25,25 @@ class EmojiMemoryGameViewModel: ObservableObject {
             }
     }
     
+    func createNewGame(with theme: Theme) {
+        let emojis = theme.emojis.map { String($0) }
+        self.model = EmojiMemoryGameModel(
+            numberOfPairsOfShowingEmojis: min(emojis.count, 8)) { index in
+                if emojis.indices.contains(index) {
+                    return emojis[index]
+                } else {
+                    return "⁉️"
+                }
+            }
+    }
+    
     init(theme: Theme) {
         self.currentTheme = theme
         self.model = Self.createGame(with: theme)
+    }
+    
+    var score: Int {
+        return model.score
     }
     
     func changeTheme(to newTheme: Theme) {

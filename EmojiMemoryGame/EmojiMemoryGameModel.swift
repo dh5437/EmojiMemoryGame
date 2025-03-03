@@ -10,6 +10,7 @@ import Foundation
 struct EmojiMemoryGameModel<CardContent> where CardContent: Hashable {
     private(set) var deck: Array<Card>
     private(set) var discardedDeck: Array<Card> = []
+    var score: Int = 0
     
     init(numberOfPairsOfShowingEmojis: Int, contentFactory: @escaping (Int) -> CardContent) {
         deck = []
@@ -49,7 +50,7 @@ struct EmojiMemoryGameModel<CardContent> where CardContent: Hashable {
                 discard(firstFaceUpIndex)
                 discard(chosenIndex)
                 
-                print("Card is Matched! \(deck[firstFaceUpIndex].content), \(deck[chosenIndex].content)")
+                addScore()
             }
         }
     }
@@ -62,17 +63,19 @@ struct EmojiMemoryGameModel<CardContent> where CardContent: Hashable {
 
     private mutating func discard(_ index: Int) {
         if deck.indices.contains(index) {
-            var card = deck[index]
-            card.id += "_discarded"
+            let card = deck[index]
             discardedDeck.append(card)
             deck[index].isFaceUp = false
             deck = deck.map { $0 }
         }
     }
 
-    
     mutating func shuffle() {
         deck.shuffle()
+    }
+    
+    private mutating func addScore() {
+        score += 2
     }
     
     struct Card: Identifiable, Hashable {
