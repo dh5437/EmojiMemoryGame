@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Theme: Identifiable, Hashable {
+struct Theme: Identifiable, Hashable, Equatable {
     let id = UUID()
     
     var name: String
